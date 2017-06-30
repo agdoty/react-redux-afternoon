@@ -1,7 +1,38 @@
 import React,  { Component } from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import { updateLoanPropType } from './../../ducks/reducer'
+import { connect } from 'react-redux'; //ADDED
 
 class WizardOne extends Component {
+        constructor(props){
+            super(props)
+            this.state={
+                loanType: 'Home Purchase',
+                propertyType: 'Single Family Home'
+            }
+            this.handleChangeLoanType = this.handleChangeLoanType.bind(this);
+            this.handleChangePropertyType = this.handleChangePropertyType.bind(this);
+            this.handleClick = this.handleClick.bind(this);
+    }   
+
+    
+
+    handleChangeLoanType(event) {
+        this.setState({loanType : event.target.value});
+    }
+    handleChangePropertyType(event) {
+        this.setState({propertyType : event.target.value});
+    }
+    handleClick(){
+        // this.props.dispatch(
+        //     {
+        //         type: 'update/UPDATE_LOAN_AND_PROP_TYPE',
+        //         payload: {loanType: this.state.loanType, propertyType: this.state.propertyType}
+        //     }
+        // )
+        updateLoanPropType({loanType: this.state.loanType, propertyType: this.state.propertyType})
+    }
+
 
     render(){
         return(
@@ -27,11 +58,16 @@ class WizardOne extends Component {
                     <option value="mobileHome">Mobile Home</option>
 
                 </select>
-                
-                <Link to="/wTwo"><button > Next </button></Link>
+                {this.state.loanType}
+                <Link to="/wTwo"><button onClick={this.handleClick}> Next </button></Link>
 
             </div>
         )
     }
 }
-export default WizardOne; 
+function mapStateToProps( state ) {
+  return { 
+      state 
+    };
+}
+export default connect(mapStateToProps, {updateLoanPropType})(WizardOne); 
