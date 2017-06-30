@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-// import WizardOne from './../WizardOne/WizardOne';
 import { Link } from 'react-router-dom'
 
 class NextBtn extends Component {
     render(){
-        // console.table(this.props)
         return(
             <div>
                 Home Loan Wizard <br />
